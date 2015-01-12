@@ -41,6 +41,10 @@ User class ...
 
 ### Testing
 
+For development and testing your need to create a test_wiki git folder. 
+
+Tests use rspec, so **rspec** in the root directory will run all tests. 
+
 ### Feedback and Issues
 
 ## License
