@@ -12,5 +12,8 @@ module GollumRails
       FactoryGirl.definition_file_paths << File.expand_path('../../../spec/factories', __FILE__) if defined?(FactoryGirl)
     end
 
+    config.after_initialize do
+      WikiPage.init_wiki
+    end
   end
 end
