@@ -1,0 +1,24 @@
+%h3= t(:label_new_wiki_page)
+.autoscroll
+  = form_tag(new_wiki_page_path("."), method: "post") do
+    .box.tabular
+      #all_attributes
+        %p
+          = label_tag '', for: 'issue_subject' do
+            = t(:label_edit_title)
+            %span.required *
+          = text_field_tag :title, params[:title], id: 'issue_subject', name: 'pg[title]', maxlength: 255, size: 80
+        %p.editor
+          = label_tag '', for: 'epiceditor' do
+            = t(:label_content)
+            \&nbsp;&nbsp;
+        #epiceditor
+        %textarea#page-predefined{:name => "pg[content]", :style => "display:none"}
+        %p
+          = label_tag '', for: 'commit_message' do
+            = t(:label_edit_commit_message)
+            %span.required *
+          = text_field_tag :commit, "Created Page", id: 'commit_message', name: 'pg[commit]', size: 100
+    = button_tag(t(:label_submit_new))
+
+= render partial: 'wiki/editor', locals: { predefined: false}

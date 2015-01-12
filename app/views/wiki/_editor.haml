@@ -1,0 +1,14 @@
+= javascript_include_tag 'epiceditor.min.js', :plugin => 'gollum'
+%aside.__editor--main
+  %script{:type => "application/javascript"}
+    var editor = new EpicEditor({
+    basePath: '',
+    textarea: 'page-predefined',
+    clientSideStorage: false,
+    autogrow: true,
+    theme: {
+    base: "<haml:loud> asset_path('base/epiceditor.css')</haml:loud>",
+    preview: "<haml:loud> asset_path('preview/github.css')</haml:loud>",
+    editor: "<haml:loud> asset_path('editor/epic-dark.css')</haml:loud>"
+    }
+    }).load();
