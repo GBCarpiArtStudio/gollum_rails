@@ -4,7 +4,7 @@
 GollumRails::Engine.routes.draw do
 
   constraints(:folder => /.*/, :page => /.*/ ) do
-    get  "/pages/index" => "pages#index", as: :pages_root
+    get  "/index" => "wiki#index", as: :wiki_root
   end
 
 end

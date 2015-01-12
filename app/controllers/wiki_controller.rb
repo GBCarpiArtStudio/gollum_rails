@@ -7,7 +7,7 @@ class WikiController < ApplicationController
 
   # GET /pages
   def index
-    @pages = Page.wiki.pages
+    @pages = WikiPage.wiki.pages
   end
 
 
