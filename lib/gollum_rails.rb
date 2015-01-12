@@ -1,2 +1,1 @@
-module GollumRails
-end
+require "gollum_rails/engine"
