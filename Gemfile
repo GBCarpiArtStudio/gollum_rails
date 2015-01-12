@@ -24,7 +24,7 @@ end
 group :test do
   gem "codeclimate-test-reporter"
   gem 'rspec-rails'
-  gem 'capybara'
+#  gem 'capybara'
   gem "factory_girl_rails"
   gem 'i18n-spec'
   gem 'guard-rails'
