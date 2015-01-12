@@ -1,6 +1,7 @@
 # GollumRails
+[![Build Status](https://travis-ci.org/gollum/gollum_rails.svg)](https://travis-ci.org/gollum/gollum_rails)
 
-Gollumn rails lets you integrate a git based wiki into your application. In other words, GollumRail is 
+Gollumn rails lets you integrate a git based wiki into your application. In other words, GollumRails is 
 a rails engine that wraps gollum-lib.
 
 ## Status
@@ -15,7 +16,7 @@ Add gem 'gollum_rails' to your **Gemfile** and bundle
 Create a git repository where you want, possibly bare. eg 
 
 ```bash
-$ mkdir wiki
+$ mkdir wiki.git
 $ cd wiki
 $ git init --bare
 ```
@@ -23,7 +24,7 @@ $ git init --bare
 in your application.rb 
 
 ```
-  config.wiki_path = "wiki"
+  config.wiki_path = "wiki.git"
 ```
 if the path does not start with "/" it will be relative to Rails.root
 
