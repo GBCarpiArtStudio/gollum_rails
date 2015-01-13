@@ -6,7 +6,7 @@ rvm:
   - ruby-head
 
 script:
-  - bundle exec rspec
+  - rspec
 
 matrix:
   allow_failures:
