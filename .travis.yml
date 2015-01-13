@@ -20,5 +20,5 @@ before_install:
   - git init --bare spec/utils/test_wiki.git
 
 install:
-  - cd test_app; bundle install --deployment
+  - cd test_app; bundle install --deployment;cd ..
   - bundle install --deployment
