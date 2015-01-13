@@ -2,7 +2,7 @@ PATH
   remote: .
   specs:
     gollum_rails (0.0.1)
-      gollum-lib (~> 4.0.0)
+      gollum-lib (~> 4.0.1)
       haml (~> 4.0)
       rails (~> 4.1.9)
       sass-rails (~> 4.0)
