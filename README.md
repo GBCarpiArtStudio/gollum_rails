@@ -1,7 +1,7 @@
 # GollumRails
 [![Build Status](https://travis-ci.org/gollum/gollum_rails.svg)](https://travis-ci.org/gollum/gollum_rails)
 
-Gollumn rails lets you integrate a git based wiki into your application. In other words, GollumRails is 
+Gollum Rails lets you integrate a git based wiki into your application. In other words, Gollum Rails is 
 a rails engine that wraps gollum-lib.
 
 ## Status
