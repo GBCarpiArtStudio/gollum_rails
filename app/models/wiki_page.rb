@@ -14,7 +14,7 @@ class WikiPage < Gollum::Page
   # The singleton wiki (currently) is instantiated from the after_init in the engine
   # this can definately be improved, but it's a nice low key start
   def self.init_wiki
-    @wiki = Gollum::Wiki.new(configure_path(Rails.application.config.wiki_path))
+    @wiki = Gollum::Wiki.new(GollumRails::PathHelpers.configure_path(Rails.application.config.wiki_path))
   end
 
 
