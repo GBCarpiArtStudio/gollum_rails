@@ -40,11 +40,22 @@ User class ...
 
 ## Contributing
 
+### Development
+
+When the repo is checked out you can develop in the root as if it were a normal rails app.
+The app used is actually the test_app, but normal files like Gemfile and bin/rails exist in the root.
+So
+- bundle
+- bundle exec rails s
+- bundle exec rspec
+
+all work from the root directory.
+
 ### Testing
 
-For development and testing your need to create a test_wiki git folder. 
+Tests are as always in the **spec** folder. Running them also works in the root directory by bundle exec rspec.
 
-Tests use rspec, so **rspec** in the root directory will run all tests. 
+Tests shoud accompany new code and bug fixes. **Rspec should be run before pushing**
 
 ### Feedback and Issues
 
