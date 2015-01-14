@@ -14,4 +14,8 @@ RSpec.configure do |config|
   config.infer_spec_type_from_file_location!
   config.order = "random"
 
+  if config.files_to_run.one?
+    config.default_formatter = 'doc'
+  end
+
 end
