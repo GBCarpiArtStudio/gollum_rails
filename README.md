@@ -7,7 +7,10 @@ a Ruby on Rails engine that wraps [gollum-lib](https://github.com/gollum/gollum-
 ## Status
 
 This project has just rebooted. The previous version was not an engine, so we are adding controllers and views now.
-ETA: 2-4 months.
+
+ETA: 4-6 months.
+
+**DO not touch this unless you want to participate.**
 
 ## Installation
 
