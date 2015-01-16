@@ -1,3 +1,9 @@
 require "gollum-lib"
-require "haml"
 require "gollum_rails/engine"
+require "haml"
+require "jquery-ui-rails"
+require 'coffee_script'
+require 'bootstrap-sass'
+require 'bootstrap_form'
+require "paperclip"
+require 'rails-i18n'
