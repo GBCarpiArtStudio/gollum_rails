@@ -10,7 +10,7 @@ module GollumRails
     end
 
     config.after_initialize do
-      WikiPage.init_wiki
+      Wiki.init_wiki
     end
   end
 end
