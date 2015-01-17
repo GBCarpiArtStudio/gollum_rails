@@ -7,9 +7,16 @@ class WikiController < ApplicationController
 
   # GET /pages
   def index
-    @pages = WikiPage.wiki.pages
+    @pages = Wiki.wiki.pages
   end
 
+  def create
+    title = params[:title]
+
+    
+
+    
+  end
   def page
   end
 
