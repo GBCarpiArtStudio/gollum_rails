@@ -8,4 +8,9 @@
 
 class WikiPage < Gollum::Page
 
+  # this is on an existing page, just stuff new content in
+  # TODO comit data
+  def update_content! content , commit
+    Wiki.wiki.update_page(self, self.name, self.format, content)
+  end
 end

@@ -3,7 +3,7 @@ class WikiController < ApplicationController
 
   include GollumRails::Engine.routes.url_helpers
 
-  before_filter :find_page, only: [ :page ]
+  before_filter :find_page, only: [ :page , :edit]
 
   # GET /pages
   def index
@@ -22,6 +22,13 @@ class WikiController < ApplicationController
     end
   end
 
+  def edit
+    if request.post?
+      name = @page.name
+      @page.update_content!(params[:content], {})
+      return redirect_to wiki_page_path(name)
+    end
+  end
   def page
   end
 
@@ -29,7 +36,7 @@ class WikiController < ApplicationController
 
   def find_page
     @page = Wiki.wiki.find(params[:page])
-    redirect_to new_page_path(title: params[:page]), notice: t(:notice_page_does_to_exist) unless @page
+    redirect_to new_wiki_page_path(title: params[:page]), notice: t(:notice_page_does_to_exist) unless @page
   end
 
 end
