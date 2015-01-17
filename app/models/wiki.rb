@@ -4,16 +4,18 @@
 # with the wiki class method
 
 class Wiki < Gollum::Wiki
-
+  @@wiki = nil
   # reader for class attribute :wiki
-  cattr_reader :wiki
+  def self.wiki
+    @@wiki || init_wiki
+  end
 
   # The singleton wiki (currently) is instantiated from the after_init in the engine
   # this can definately be improved, but it's a nice low key start
   def self.init_wiki path = Rails.application.config.wiki_path
     path = Rails.root.join(path) if path.starts_with?("/")
     begin
-      @@wiki = Gollum::Wiki.new(path)
+      @@wiki = Wiki.new(path)
     rescue Gollum::NoSuchPathError
       puts "No path #{path}"
       raise
@@ -21,9 +23,6 @@ class Wiki < Gollum::Wiki
     @@wiki
   end
 
-  def self.path
-    
-  end
   # Find an existing page or create it
   #
   # name - The name
@@ -42,25 +41,10 @@ class Wiki < Gollum::Wiki
   # Finds a page based on the name and specified version
   #
   # name - the name of the page
-  # version - optional - The pages version
-  # exact - optional - perform an exact match
   #
   # Return an instance of Gollum::Page
-  def find(name, version=nil, exact=true)
-    name = name[:name] if name.kind_of?(Hash) && name.has_key?(:name)
-    wiki.clear_cache
-    path = File.split(name)
-    if path.first == '/' || path.first == '.'
-      folder = nil
-    else
-      folder = path.first
-    end
-    page = wiki.paged(path.last, folder, exact, version)
-    if page
-      new(gollum_page: page)
-    else
-      nil
-    end
+  def find(name, version=nil)
+    paged(name)
   end
 
   # == Searches the wiki for files CONTENT!
