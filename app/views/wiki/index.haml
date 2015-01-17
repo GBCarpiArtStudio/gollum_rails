@@ -5,4 +5,4 @@
 .row
   -@pages.each do |page|
     .col-md-6
-      = page
+      = link_to page.name , wiki_page_path(page.name)
