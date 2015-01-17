@@ -20,6 +20,7 @@ Gem::Specification.new do |s|
 
   s.add_dependency         "rails", "~> 4.1.9"
   s.add_dependency         "gollum-lib", "~> 4.0.1"
+  s.add_dependency         'github-markdown', '~> 0.6.5'
   s.add_runtime_dependency "sass-rails" , "~> 4.0"
   s.add_runtime_dependency "haml" , "~> 4.0"
   s.add_runtime_dependency "jquery-rails" , '~> 3.1'
