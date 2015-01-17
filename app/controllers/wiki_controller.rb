@@ -11,19 +11,24 @@ class WikiController < ApplicationController
   end
 
   def create
-    title = params[:title]
-
-    
-
-    
+    name   = params[:title]
+    format = :markdown #params[:format].intern
+    begin
+      Wiki.wiki.write_page(name, format, params[:content])
+      return redirect_to wiki_page_path(name)
+    rescue Gollum::DuplicatePageError => e
+      flash.error = "Duplicate page: #{e.message}"
+      render :edit
+    end
   end
+
   def page
   end
 
   private
 
   def find_page
-    @page = WikiPage.find(params[:page])
+    @page = Wiki.wiki.find(params[:page])
     redirect_to new_page_path(title: params[:page]), notice: t(:notice_page_does_to_exist) unless @page
   end
 
