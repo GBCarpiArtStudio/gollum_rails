@@ -1,5 +1,3 @@
-require_relative "wiki"
-
 module GollumRails
   class Engine < ::Rails::Engine
     engine_name "gollum_rails"

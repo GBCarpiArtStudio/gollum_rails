@@ -1,12 +1,17 @@
-# Our model of a page is derived from the gollum page, from which it inherites it's persistance
+# Basic model of a page, for access to content etc
 
-# There one more "model", the wiki, but it is a singleton and we use the gollums class as a
-# class variable on Page
+# Pages are stored in a git, not db
 
-# TODO, when set up rightly, gollum-lib will instantiate this not it's own Page class. need to pass to wiki
+# The Wiki class (in lib) is to us what a db-connection would be to AR-model
 
+require "gollum_rails/wiki"
 
-class WikiPage < Gollum::Page
+class WikiPage
+  
+  def to_param
+    @title
+  end
+
   # this is on an existing page, just stuff new content in
   # TODO comit data
   def update_content! content , commit
@@ -23,15 +28,9 @@ class WikiPage < Gollum::Page
   end
   # The singleton wiki (currently) is instantiated from the after_init in the engine
   # this can definately be improved, but it's a nice low key start
-  def self.init_wiki path = Rails.application.config.wiki_path
-    path = Rails.root.join(path) unless path.starts_with?("/")
-    begin
-      @@wiki = GollumRails::Wiki.new(path)
-    rescue Gollum::NoSuchPathError
-      puts "No path #{path}"
-      raise
-    end
-    @@wiki
+  def self.init_wiki 
+    path = Rails.application.config.wiki_path
+    @@wiki = GollumRails::Wiki.new(path)
   end
   
 end

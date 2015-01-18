@@ -1,4 +1,4 @@
-require "gollum-lib"
+require "rugged"
 require "gollum_rails/engine"
 require "haml"
 require "jquery-ui-rails"

@@ -1,12 +1,21 @@
 require 'spec_helper'
+require 'fileutils'
 
 describe GollumRails::Wiki do
-   it "init from an relative path" do
-    expect(WikiPage.init_wiki("../spec/utils/test_wiki.git").path).to eq Rails.root.join("../spec/utils/test_wiki.git")
-   end
-
-   #TODO, this would need the repo to be created (above exists for testing)
-#   it "should init from absolute (to reails root) path" do
-#      expect(WikiPage.init_wiki("../spec/utils/test_wiki.git").path).to eq "../spec/utils/test_wiki.git"
-#   end
+  it "init from a relative path" do
+    path = Pathname.new("./spec/utils/test_wiki.git")
+    wiki = GollumRails::Wiki.new(path)
+    expect(wiki.path) == path
+  end
+  it "init from a relative string" do
+    path = Pathname.new("./spec/utils/test_wiki.git")
+    wiki = GollumRails::Wiki.new(path.to_s)
+    expect(wiki.path) == path
+  end
+  it "init non existing path" do
+    path = Pathname.new("definately_not_there")
+    wiki = GollumRails::Wiki.new(path)
+    expect(wiki.path) == path
+    FileUtils.rm_r path.to_s
+  end
 end
