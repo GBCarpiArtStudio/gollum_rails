@@ -17,8 +17,8 @@ class WikiController < ApplicationController
       render :edit
       format = :markdown #params[:format].intern
     else
-      page.update_page(params[:message])
-      redirect_to wiki_page_path(page)
+      @page.update_page(params[:message])
+      redirect_to wiki_page_path(@page)
     end
   end
 
