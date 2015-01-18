@@ -1,6 +1,8 @@
 = link_to t(:edit) , edit_wiki_page_path(@page.name) , :class => "btn , btn-info"
 = link_to t(:rename) , edit_wiki_page_path(@page.name) , :class => "btn , btn-info"
 %h3=@page.name
-=@page.format
-
+= @page.ext
+= @page.oid
+%br
+%br
 = raw @page.formatted_data

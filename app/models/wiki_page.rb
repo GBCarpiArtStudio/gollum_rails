@@ -4,8 +4,6 @@
 
 # The Wiki class (in lib) is to us what a db-connection would be to AR-model
 
-require "gollum_rails/wiki"
-
 class WikiPage
 
   attr_reader :name , :ext , :oid
@@ -13,13 +11,16 @@ class WikiPage
   # init from an exising git entry
   def initialize(entry)
     @name , @ext = entry[:name].split(".")
-    @ooid = entry[:oid]
+    @oid = entry[:oid]
   end
 
   def to_param
     @title
   end
 
+  def formatted_data
+    WikiPage.wiki.oid_data(self.oid)
+  end
   # this is on an existing page, just stuff new content in
   # TODO comit data
   def update_content! content , commit
