@@ -11,14 +11,14 @@ class WikiController < ApplicationController
   end
 
   def create
-    name   = params[:title]
-    format = :markdown #params[:format].intern
-    begin
-      WikiPage.wiki.write_page(name, format, params[:content])
-      return redirect_to wiki_page_path(name)
-    rescue Gollum::DuplicatePageError => e
-      flash.error = "Duplicate page: #{e.message}"
+    @page = WikiPage.new(params)
+    if(@page.name_exists?)
+      flash[:error] = "Page name exists, please change #{@page.name}"
       render :edit
+      format = :markdown #params[:format].intern
+    else
+      page.update_page(params[:message])
+      redirect_to wiki_page_path(page)
     end
   end
 

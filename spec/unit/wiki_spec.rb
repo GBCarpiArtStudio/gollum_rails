@@ -19,10 +19,12 @@ describe GollumRails::Wiki do
     FileUtils.rm_r path.to_s
   end
   it "creates a homepage" do
-    wiki = GollumRails::Wiki.new("./spec/utils/test_wiki.git")
+    path = Pathname.new("definately_not_there.git")
+    wiki = GollumRails::Wiki.new(path)
     pages = wiki.pages
     expect(pages.length).to be 1
     expect(pages.first.class).to be WikiPage
     expect(pages.first.name).to eq "Home"
+    FileUtils.rm_r path.to_s
   end
 end
