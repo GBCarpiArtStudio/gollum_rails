@@ -7,7 +7,15 @@
 require "gollum_rails/wiki"
 
 class WikiPage
-  
+
+  attr_reader :name , :ext , :oid
+
+  # init from an exising git entry
+  def initialize(entry)
+    @name , @ext = entry[:name].split(".")
+    @ooid = entry[:oid]
+  end
+
   def to_param
     @title
   end

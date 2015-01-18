@@ -18,8 +18,8 @@ class GollumRails::Wiki
       else
         @repo = Rugged::Repository.init_at(path.to_s)
       end
-      init_homepage
     end
+    init_homepage
   end
 
   # give the directory of the git as a Pathname
@@ -29,6 +29,13 @@ class GollumRails::Wiki
   def path
     @path
   end
+
+  def pages
+    list = []
+    @repo.head.target.tree.each_blob { |entry| list << WikiPage.new(entry) }
+    list
+  end
+
   # Find an existing page or create it
   #
   # name - The name
@@ -75,6 +82,20 @@ class GollumRails::Wiki
 
   private
   def init_homepage
-    # add a basic page with the default name (configurable, default home) 
+    # add a basic page with the default name (todo configurable, default home)
+    return unless @repo.empty?
+    # NOTE this is the long way, as the short way involves repo.head which does not exist yet
+    # Improvements welcome
+    oid = @repo.write("Your first wiki page", :blob)
+    builder = Rugged::Tree::Builder.new
+    builder << { :type => :blob, :name => "Home.md", :oid => oid, :filemode => 0100644 }
+    options = {}
+    options[:tree] = builder.write(@repo)
+    options[:author] = { :email => "gollum_rails@github.com", :name => 'Gollum Rails', :time => Time.now }
+    options[:committer] = { :email => "gollum_rails@github.com", :name => 'Gollum Rails', :time => Time.now }
+    options[:message] ||= "Homepage created"
+    options[:parents] = []
+    options[:update_ref] = 'HEAD'
+    Rugged::Commit.create(@repo, options)
   end
 end
