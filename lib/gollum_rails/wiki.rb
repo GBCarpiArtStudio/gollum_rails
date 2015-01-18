@@ -3,27 +3,10 @@
 # This is singleton, ie only ever one instance is supported and you can get that instance 
 # with the wiki class method
 
-class Wiki < Gollum::Wiki
-  @@wiki = nil
-  # reader for class attribute :wiki
-  def self.wiki
-    @@wiki || init_wiki
-  end
+class GollumRails::Wiki < Gollum::Wiki
 
   def self.page_class
     WikiPage
-  end
-  # The singleton wiki (currently) is instantiated from the after_init in the engine
-  # this can definately be improved, but it's a nice low key start
-  def self.init_wiki path = Rails.application.config.wiki_path
-    path = Rails.root.join(path) if path.starts_with?("/")
-    begin
-      @@wiki = Wiki.new(path)
-    rescue Gollum::NoSuchPathError
-      puts "No path #{path}"
-      raise
-    end
-    @@wiki
   end
 
   def initiaize path

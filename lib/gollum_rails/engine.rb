@@ -1,3 +1,4 @@
+require_relative "wiki"
 
 module GollumRails
   class Engine < ::Rails::Engine
@@ -10,7 +11,7 @@ module GollumRails
     end
 
     config.after_initialize do
-      Wiki.init_wiki
+      WikiPage.init_wiki
     end
   end
 end

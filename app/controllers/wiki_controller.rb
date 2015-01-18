@@ -7,14 +7,14 @@ class WikiController < ApplicationController
 
   # GET /pages
   def index
-    @pages = Wiki.wiki.pages
+    @pages = WikiPage.wiki.pages
   end
 
   def create
     name   = params[:title]
     format = :markdown #params[:format].intern
     begin
-      Wiki.wiki.write_page(name, format, params[:content])
+      WikiPage.wiki.write_page(name, format, params[:content])
       return redirect_to wiki_page_path(name)
     rescue Gollum::DuplicatePageError => e
       flash.error = "Duplicate page: #{e.message}"
@@ -35,7 +35,7 @@ class WikiController < ApplicationController
   private
 
   def find_page
-    @page = Wiki.wiki.find(params[:page])
+    @page = WikiPage.wiki.find(params[:page])
     redirect_to new_wiki_page_path(title: params[:page]), notice: t(:notice_page_does_to_exist) unless @page
   end
 
