@@ -1,7 +1,7 @@
 %h3= t(:new_wiki_page)
-= bootstrap_form_tag :url => create_wiki_page_path , :html => { :multipart => true , :role=>"form"}  do |f|
+= bootstrap_form_tag :url => create_wiki_page_path , :html => { :role=>"form"}  do |f|
   .form_group
-    = f.text_field :title
+    = f.text_field :name
   .form_group
     = f.text_area :content 
   .form_group
