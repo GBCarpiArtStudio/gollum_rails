@@ -25,7 +25,7 @@ class WikiController < ApplicationController
   def edit
     return unless request.post?
     name = @page.name
-    @page.update_content!(params[:content], {})
+    @page.update_page(params[:content], params[:message] , {})
     return redirect_to wiki_page_path(name)
   end
 

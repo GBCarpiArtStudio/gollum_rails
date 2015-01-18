@@ -23,8 +23,8 @@ class WikiPage
   end
   # this is on an existing page, just stuff new content in
   # TODO comit data
-  def update_content! content , commit
-    WikiPage.wiki.update_page(self, self.name, self.format, content)
+  def update_page content , message , commiter
+    WikiPage.wiki.update_page(self, content , message,  commiter)
   end
 
   ## TODO move this stuff into a concern or something

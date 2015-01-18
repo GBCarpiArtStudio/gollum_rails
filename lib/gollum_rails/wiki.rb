@@ -29,9 +29,8 @@ class GollumRails::Wiki
   def path
     @path
   end
-
   def oid_data(oid)
-    @repo.lookup(oid).read_raw.data
+    @repo.lookup(oid).content
   end
   def pages
     list = []
@@ -39,6 +38,21 @@ class GollumRails::Wiki
     list
   end
 
+  def update_page page , content , message , commiter
+    oid = @repo.write(content, :blob)
+    index = @repo.index
+    index.read_tree(@repo.head.target.tree)
+    index.add(:path => "#{page.name}.#{page.ext}", :oid => oid, :mode => 0100644)
+    options = {}
+    options[:tree] = index.write_tree(@repo)
+    options[:author] = { :email => "gollum_rails@github.com", :name => 'Gollum Rails' }
+    options[:committer] = { :email => "gollum_rails@github.com", :name => 'Gollum Rails' }
+    options[:message] ||= message
+    options[:parents] = [ @repo.head.target ].compact
+    options[:update_ref] = 'HEAD'
+
+    Rugged::Commit.create(@repo, options)
+  end
   # Finds a page based on the name 
   #
   # name - the name of the page
@@ -55,7 +69,6 @@ class GollumRails::Wiki
   def init_homepage
     # add a basic page with the default name (todo configurable, default home)
     return unless @repo.empty?
-    # NOTE this is the long way, as the short way involves repo.head which does not exist yet
     # Improvements welcome
     oid = @repo.write("Your first wiki page", :blob)
     builder = Rugged::Tree::Builder.new
