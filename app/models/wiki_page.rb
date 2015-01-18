@@ -7,24 +7,43 @@
 class WikiPage
 
   attr_reader :name , :ext , :oid
+  attr_accessor :content
 
   # init from an exising git entry
+  def self.init_entry entry
+    name , ext = entry[:name].split(".")
+    entry[:name] = name
+    entry[:ext] = ext
+    WikiPage.new entry
+  end
+
+  #Initialize from a hash that may have all the attributes set 
   def initialize(entry)
-    @name , @ext = entry[:name].split(".")
+    @name = entry[:name]
+    @ext = entry[:ext] || :md
     @oid = entry[:oid]
+    @content = entry[:content]
   end
 
   def to_param
-    @title
+    @name
   end
 
-  def formatted_data
+  def content
+    return @content unless @content.nil?
+    return "" if self.oid.nil?
     WikiPage.wiki.oid_data(self.oid)
   end
-  # this is on an existing page, just stuff new content in
-  # TODO comit data
-  def update_page content , message , commiter
-    WikiPage.wiki.update_page(self, content , message,  commiter)
+
+  # checks to see if a page by this name is alread in the rep
+  def name_exists?
+    !WikiPage.wiki.find(self.name).nil?
+  end
+  # writes the current page data to the git
+  # new or old doesn't really matter, git will decide
+  # TODO commit data
+  def update_page  message , commiter = { :email => "gollum_rails@github.com", :name => 'Gollum Rails' }
+    WikiPage.wiki.update_page(self, message,  commiter)
   end
 
   ## TODO move this stuff into a concern or something

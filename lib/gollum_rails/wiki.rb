@@ -34,25 +34,24 @@ class GollumRails::Wiki
   end
   def pages
     list = []
-    @repo.head.target.tree.each_blob { |entry| list << WikiPage.new(entry) }
+    @repo.head.target.tree.each_blob { |entry| list << WikiPage.init_entry(entry) }
     list
   end
 
-  def update_page page , content , message , commiter
-    oid = @repo.write(content, :blob)
-    index = @repo.index
-    index.read_tree(@repo.head.target.tree)
-    index.add(:path => "#{page.name}.#{page.ext}", :oid => oid, :mode => 0100644)
+  def update_page page , message , commiter = { :email => "gollum_rails@github.com", :name => 'Gollum Rails' }
+    oid = @repo.write(page.content, :blob)
+    builder = Rugged::Tree::Builder.new
+    builder << { :type => :blob, :name => "#{page.name}.#{page.ext}", :oid => oid, :filemode => 0100644 }
     options = {}
-    options[:tree] = index.write_tree(@repo)
-    options[:author] = { :email => "gollum_rails@github.com", :name => 'Gollum Rails' }
-    options[:committer] = { :email => "gollum_rails@github.com", :name => 'Gollum Rails' }
-    options[:message] ||= message
-    options[:parents] = [ @repo.head.target ].compact
+    options[:tree] = builder.write(@repo)
+    options[:author] = commiter
+    options[:committer] = commiter
+    options[:message] = message.nil? ? "" : message
+    options[:parents] = @repo.empty? ? [] : [ @repo.head.target ].compact
     options[:update_ref] = 'HEAD'
-
     Rugged::Commit.create(@repo, options)
   end
+
   # Finds a page based on the name 
   #
   # name - the name of the page
@@ -60,7 +59,7 @@ class GollumRails::Wiki
   # Return an instance of Gollum::Page
   def find(name)
     @repo.head.target.tree.each_blob do |entry| 
-      return WikiPage.new(entry) if entry[:name].starts_with? name
+      return WikiPage.init_entry(entry) if entry[:name].starts_with? name
     end
     nil
   end
@@ -69,17 +68,7 @@ class GollumRails::Wiki
   def init_homepage
     # add a basic page with the default name (todo configurable, default home)
     return unless @repo.empty?
-    # Improvements welcome
-    oid = @repo.write("Your first wiki page", :blob)
-    builder = Rugged::Tree::Builder.new
-    builder << { :type => :blob, :name => "Home.md", :oid => oid, :filemode => 0100644 }
-    options = {}
-    options[:tree] = builder.write(@repo)
-    options[:author] = { :email => "gollum_rails@github.com", :name => 'Gollum Rails', :time => Time.now }
-    options[:committer] = { :email => "gollum_rails@github.com", :name => 'Gollum Rails', :time => Time.now }
-    options[:message] ||= "Homepage created"
-    options[:parents] = []
-    options[:update_ref] = 'HEAD'
-    Rugged::Commit.create(@repo, options)
+    home = WikiPage.new( :name => "Home" , :ext => "md" , :content => "Your first wiki page")
+    update_page(home , "Homepage created" )
   end
 end
