@@ -33,6 +33,9 @@ Add `gem 'gollum_rails'` to your **Gemfile** and bundle.
 Is the default, if you want something else, add to application.rb.
 If the path does not start with "/" it will be relative to Rails.root
 
+If the repository does not exist, it will be created. If it does exist, it must be bare.
+The working directory is not updated (as usual on serevers), but you may clone and push to it from elsewhere.
+
 #### Commit data
 
 Application controller `current_wiki_user` , aliased or implemented ...
