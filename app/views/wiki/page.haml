@@ -1,5 +1,5 @@
-= link_to t(:edit) , edit_wiki_page_path(@page.name) , :class => "btn , btn-info"
-= link_to t(:rename) , edit_wiki_page_path(@page.name) , :class => "btn , btn-info"
+= link_to t(:edit) , edit_wiki_page_path(@page.name) , :class => "btn , btn-info edit_link"
+= link_to t(:rename) , edit_wiki_page_path(@page.name) , :class => "btn , btn-info rename_link"
 %h3=@page.name
 = @page.ext
 = @page.oid

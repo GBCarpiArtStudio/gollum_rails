@@ -25,14 +25,14 @@ class WikiController < ApplicationController
     return unless request.post?
     name = @page.name
     @page.content = params[:content]
-    @page.save_page( params[:message] , {})
+    @page.save_page( params[:message] )
     return redirect_to wiki_page_path(name)
   end
 
   def rename
     return unless request.post?
     name = @page.name
-    @page.update_content!(params[:content], {})
+    @page.update_content!(params[:content])
     return redirect_to wiki_page_path(name)
 
 

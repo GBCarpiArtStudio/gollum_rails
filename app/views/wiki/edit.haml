@@ -1,5 +1,5 @@
 %h3= t(:edit_wiki_page) + " : " + @page.name
-= bootstrap_form_tag :url => edit_wiki_page_path(@page.name) , :html => { :multipart => true , :role=>"form"}  do |f|
+= bootstrap_form_tag :url => edit_wiki_page_path(@page.name) , :html => { :role=>"form"}  do |f|
   .form_group
     = f.text_area :content , :value => @page.content , :rows => page_rows(@page)
   .form_group
