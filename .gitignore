@@ -2,7 +2,7 @@
 /.bundle
 /vendor/bundle/
 /vendor/ruby/
-test_wiki.git/
+wiki.git/
 
 # minimal Rails specific artifacts
 *.sqlite3
