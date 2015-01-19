@@ -37,17 +37,19 @@ class GollumRails::Wiki
     list
   end
 
-  def save_page page , message , commiter = { :email => "gollum_rails@github.com", :name => 'Gollum Rails' }
+  def save_page page , message , committer = { :email => "gollum_rails@github.com", :name => 'Gollum Rails' }
+    raise "Committer name may not be empty" unless committer[:name]
+    raise "Committer email may not be empty" unless committer[:email]
     oid = @repo.write(page.content, :blob)
-    builder = Rugged::Tree::Builder.new
-    builder << { :type => :blob, :name => "#{page.name}.#{page.ext}", :oid => oid, :filemode => 0100644 }
+    index = Rugged::Index.new
+    index.add(:path => "#{page.name}.#{page.ext}", :oid => oid, :mode => 0100644)
     options = {}
-    options[:tree] = builder.write(@repo)
-    options[:author] = commiter
-    options[:committer] = commiter
+    options[:tree] = index.write_tree(@repo)
+    options[:author] = committer
+    options[:committer] = committer
     options[:message] = message.nil? ? "" : message
     options[:parents] = @repo.empty? ? [] : [ @repo.head.target ].compact
-    options[:update_ref] = 'HEAD'
+    options[:update_ref] = "HEAD"
     Rugged::Commit.create(@repo, options)
   end
 
