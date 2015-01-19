@@ -1,9 +1,9 @@
 
 RSpec.configure do |config|
-  config.before(:each) do
+  config.before(:context) do
     WikiPage.init_wiki
   end
-  config.after(:each) do
+  config.after(:context) do
     FileUtils.rm_r(WikiPage.wiki.path.to_s) if WikiPage.wiki.path.exist?
   end
 end
