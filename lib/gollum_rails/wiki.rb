@@ -8,7 +8,7 @@ class GollumRails::Wiki
   # take a Pathname to the directory
   def initialize path
     path = Pathname.new(path) if path.is_a? String
-    @path = Rails.root.join(path) unless path.to_s.starts_with?("/")
+    path = Rails.root.join(path) unless path.to_s.starts_with?("/")
     if( path.exist? )
       raise "Path is not directory #{path}"  unless path.directory?
       @repo = Rugged::Repository.new(path.to_s)
@@ -17,6 +17,7 @@ class GollumRails::Wiki
       # create a bare repository
       @repo = Rugged::Repository.init_at(path.to_s, :bare)
     end
+    @path = path
     init_homepage
   end
 
