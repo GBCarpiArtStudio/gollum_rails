@@ -42,8 +42,8 @@ class WikiPage
   # writes the current page data to the git
   # new or old doesn't really matter, git will decide
   # TODO commit data
-  def update_page  message , commiter = { :email => "gollum_rails@github.com", :name => 'Gollum Rails' }
-    WikiPage.wiki.update_page(self, message,  commiter)
+  def save_page  message , commiter = { :email => "gollum_rails@github.com", :name => 'Gollum Rails' }
+    WikiPage.wiki.save_page(self, message,  commiter)
   end
 
   ## TODO move this stuff into a concern or something

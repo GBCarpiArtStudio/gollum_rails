@@ -15,9 +15,8 @@ class WikiController < ApplicationController
     if(@page.name_exists?)
       flash[:error] = "Page name exists, please change #{@page.name}"
       render :edit
-      format = :markdown #params[:format].intern
     else
-      @page.update_page(params[:message])
+      @page.save_page(params[:message])
       redirect_to wiki_page_path(@page)
     end
   end
@@ -25,7 +24,8 @@ class WikiController < ApplicationController
   def edit
     return unless request.post?
     name = @page.name
-    @page.update_page(params[:content], params[:message] , {})
+    @page.content = params[:content]
+    @page.save_page( params[:message] , {})
     return redirect_to wiki_page_path(name)
   end
 

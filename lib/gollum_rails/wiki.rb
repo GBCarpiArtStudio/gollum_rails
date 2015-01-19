@@ -12,12 +12,10 @@ class GollumRails::Wiki
     if( path.exist? )
       raise "Path is not directory #{path}"  unless path.directory?
       @repo = Rugged::Repository.new(path.to_s)
+      raise "Repository is not bare, see readme" unless @repo.bare?
     else
-      if( path.extname == ".git" ) # create a bare repository
-        @repo = Rugged::Repository.init_at(path.to_s, :bare)
-      else
-        @repo = Rugged::Repository.init_at(path.to_s)
-      end
+      # create a bare repository
+      @repo = Rugged::Repository.init_at(path.to_s, :bare)
     end
     init_homepage
   end
@@ -38,7 +36,7 @@ class GollumRails::Wiki
     list
   end
 
-  def update_page page , message , commiter = { :email => "gollum_rails@github.com", :name => 'Gollum Rails' }
+  def save_page page , message , commiter = { :email => "gollum_rails@github.com", :name => 'Gollum Rails' }
     oid = @repo.write(page.content, :blob)
     builder = Rugged::Tree::Builder.new
     builder << { :type => :blob, :name => "#{page.name}.#{page.ext}", :oid => oid, :filemode => 0100644 }
@@ -69,6 +67,6 @@ class GollumRails::Wiki
     # add a basic page with the default name (todo configurable, default home)
     return unless @repo.empty?
     home = WikiPage.new( :name => "Home" , :ext => "md" , :content => "Your first wiki page")
-    update_page(home , "Homepage created" )
+    save_page(home , "Homepage created" )
   end
 end
