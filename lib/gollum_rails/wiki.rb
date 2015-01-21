@@ -38,34 +38,16 @@ class GollumRails::Wiki
   end
 
   def save_page page , message , committer = { :email => "gollum_rails@github.com", :name => 'Gollum Rails' }
-    raise "Committer name may not be empty" unless committer[:name]
-    raise "Committer email may not be empty" unless committer[:email]
-    oid = @repo.write(page.content, :blob)
-    index = Rugged::Index.new
-    index.add(:path => "#{page.name}.#{page.ext}", :oid => oid, :mode => 0100644)
-    options = {}
-    options[:tree] = index.write_tree(@repo)
-    options[:author] = committer
-    options[:committer] = committer
-    options[:message] = message.nil? ? "" : message
-    options[:parents] = @repo.empty? ? [] : [ @repo.head.target ].compact
-    options[:update_ref] = "HEAD"
-    Rugged::Commit.create(@repo, options)
+    commit(committer , message) do |index|
+      oid = @repo.write(page.content, :blob)
+      index.add(:path => "#{page.name}.#{page.ext}", :oid => oid, :mode => 0100644)
+    end
   end
 
   def delete_page page , message , committer = { :email => "gollum_rails@github.com", :name => 'Gollum Rails' }
-    raise "Committer name may not be empty" unless committer[:name]
-    raise "Committer email may not be empty" unless committer[:email]
-    index = Rugged::Index.new
-    index.remove_all( "#{page.name}.#{page.ext}")
-    options = {}
-    options[:tree] = index.write_tree(@repo)
-    options[:author] = committer
-    options[:committer] = committer
-    options[:message] = message.nil? ? "" : message
-    options[:parents] = @repo.empty? ? [] : [ @repo.head.target ].compact
-    options[:update_ref] = "HEAD"
-    Rugged::Commit.create(@repo, options)
+    commit(committer , message) do |index|
+      index.remove_all( "#{page.name}.#{page.ext}")
+    end
   end
 
   # Finds a page based on the name 
@@ -86,5 +68,22 @@ class GollumRails::Wiki
     return unless @repo.empty?
     home = WikiPage.new( :name => "Home" , :ext => "md" , :content => "Your first wiki page")
     save_page( home , "Homepage created" )
+  end
+
+  # common commit code for all add,remove, rename actions
+  # yields to caller with the index to let the code do what it needs
+  def commit( committer , message)
+    raise "Committer name may not be empty" unless committer[:name]
+    raise "Committer email may not be empty" unless committer[:email]
+    index = Rugged::Index.new
+    yield index
+    options = {}
+    options[:tree] = index.write_tree(@repo)
+    options[:author] = committer
+    options[:committer] = committer
+    options[:message] = message.nil? ? "" : message
+    options[:parents] = @repo.empty? ? [] : [ @repo.head.target ].compact
+    options[:update_ref] = "HEAD"
+    Rugged::Commit.create(@repo, options)
   end
 end
