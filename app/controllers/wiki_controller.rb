@@ -3,7 +3,7 @@ class WikiController < ApplicationController
 
   include GollumRails::Engine.routes.url_helpers
 
-  before_filter :find_page, only: [ :page , :edit]
+  before_filter :find_page, only: [ :page , :edit , :delete]
 
   # GET /pages
   def index
@@ -16,7 +16,7 @@ class WikiController < ApplicationController
       flash[:error] = "Page name exists, please change #{@page.name}"
       render :edit
     else
-      @page.save_page(params[:message])
+      @page.save(params[:message])
       redirect_to wiki_page_path(@page)
     end
   end
@@ -25,8 +25,16 @@ class WikiController < ApplicationController
     return unless request.post?
     name = @page.name
     @page.content = params[:content]
-    @page.save_page( params[:message] )
+    @page.save( params[:message] )
     return redirect_to wiki_page_path(name)
+  end
+
+  def delete
+    return unless request.post?
+    name = @page.name
+    @page.delete( params[:message] )
+    flash.notice = "Page deleted "
+    return redirect_to wiki_root_path
   end
 
   def rename

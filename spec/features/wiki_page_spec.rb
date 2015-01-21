@@ -33,7 +33,16 @@ describe "edit" do
   it "edits home" do
     visit_path edit_wiki_page_path("Home")
     fill_in("content" , :with => "# edited")
+    fill_in("message" , :with => "edited")
     find(".submit").click
     ensure_path wiki_page_path("Home")
+  end
+end
+describe "delete" do
+  it "delete home" do
+    visit_path delete_wiki_page_path("Home")
+    fill_in("message" , :with => "edited")
+    find(".submit").click
+    ensure_path wiki_root_path
   end
 end

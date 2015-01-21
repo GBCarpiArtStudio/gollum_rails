@@ -53,6 +53,21 @@ class GollumRails::Wiki
     Rugged::Commit.create(@repo, options)
   end
 
+  def delete_page page , message , committer = { :email => "gollum_rails@github.com", :name => 'Gollum Rails' }
+    raise "Committer name may not be empty" unless committer[:name]
+    raise "Committer email may not be empty" unless committer[:email]
+    index = Rugged::Index.new
+    index.remove_all( "#{page.name}.#{page.ext}")
+    options = {}
+    options[:tree] = index.write_tree(@repo)
+    options[:author] = committer
+    options[:committer] = committer
+    options[:message] = message.nil? ? "" : message
+    options[:parents] = @repo.empty? ? [] : [ @repo.head.target ].compact
+    options[:update_ref] = "HEAD"
+    Rugged::Commit.create(@repo, options)
+  end
+
   # Finds a page based on the name 
   #
   # name - the name of the page
@@ -70,6 +85,6 @@ class GollumRails::Wiki
     # add a basic page with the default name (todo configurable, default home)
     return unless @repo.empty?
     home = WikiPage.new( :name => "Home" , :ext => "md" , :content => "Your first wiki page")
-    save_page(home , "Homepage created" )
+    save_page( home , "Homepage created" )
   end
 end
