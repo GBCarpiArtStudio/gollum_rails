@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe WikiPage do
+describe "Save" do
   
    it "saves a new page ok" do
      page = WikiPage.new( :content => "Jep" , :name => "my" , :ext => "md")
