@@ -2,6 +2,7 @@ require "rugged"
 require "gollum_rails/engine"
 require "haml"
 require "jquery-ui-rails"
+require "jquery-rails"
 require 'coffee_script'
 require 'bootstrap-sass'
 require 'bootstrap_form'
