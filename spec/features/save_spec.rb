@@ -1,16 +1,18 @@
 require 'spec_helper'
 
-describe "Rename" do
+describe "Save" do
   
-   it "rename a page" do
+   it "saves a new page ok" do
+     page = WikiPage.new( :content => "Jep" , :name => "my" , :ext => "md")
+     page.save "done"
+   end
+   it "saves a new page twice" do
      page = WikiPage.new( :content => "Jep" , :name => "jep" , :ext => "md")
      expect(page.save( "done").length).to eq 40
-     expect(page.rename( "Page_name" , "done").length).to eq 40
-     expect(page.name).to eq  "Page_name" 
+     page.content = "No no"
+     page.save "done"
      page = WikiPage.wiki.find("jep")
-     expect(page).to eq nil
-     page = WikiPage.wiki.find("Page_name")
-     expect(page.content).to eq "Jep"
+     expect(page.content).to eq "No no"
    end
    
 end

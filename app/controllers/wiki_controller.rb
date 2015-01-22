@@ -3,7 +3,7 @@ class WikiController < ApplicationController
 
   include GollumRails::Engine.routes.url_helpers
 
-  before_filter :find_page, only: [ :page , :edit , :delete]
+  before_filter :find_page, only: [ :page , :edit , :delete , :rename]
 
   # GET /pages
   def index

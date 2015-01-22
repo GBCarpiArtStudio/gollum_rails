@@ -10,7 +10,6 @@ describe "edit" do
   end
 
   it "edits new page" do
-    next
     page = WikiPage.new( :content => "Jep" , :name => "jep" , :ext => "md")
     expect(page.save( "done").length).to eq 40
     visit_path edit_wiki_page_path(page.name)
