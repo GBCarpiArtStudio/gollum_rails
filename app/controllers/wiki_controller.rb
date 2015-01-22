@@ -39,44 +39,9 @@ class WikiController < ApplicationController
 
   def rename
     return unless request.post?
-    name = @page.name
-    @page.update_content!(params[:content])
-    return redirect_to wiki_page_path(name)
-
-
-    wikip = wiki_page(params[:splat].first)
-    halt 500 if wikip.nil?
-    wiki   = wikip.wiki
-    page   = wiki.paged(wikip.name, wikip.path, exact = true)
-    rename = params[:rename]
-    halt 500 if page.nil?
-    halt 500 if rename.nil? or rename.empty?
-
-    # Fixup the rename if it is a relative path
-    # In 1.8.7 rename[0] != rename[0..0]
-    if rename[0..0] != '/'
-      source_dir                = ::File.dirname(page.path)
-      source_dir                = '' if source_dir == '.'
-      (target_dir, target_name) = ::File.split(rename)
-      target_dir                = target_dir == '' ? source_dir : "#{source_dir}/#{target_dir}"
-      rename                    = "#{target_dir}/#{target_name}"
-    end
-
-    committer = Gollum::Committer.new(wiki, commit_message)
-    commit    = { :committer => committer }
-
-    success = wiki.rename_page(page, rename, commit)
-    if !success
-      # This occurs on NOOPs, for example renaming A => A
-      redirect to("/#{page.escaped_url_path}")
-      return
-    end
-    committer.commit
-
-    wikip = wiki_page(rename)
-    page  = wiki.paged(wikip.name, wikip.path, exact = true)
-    return if page.nil?
-    redirect to("/#{page.escaped_url_path}")
+    @page.rename( params[:name] , params[:message] )
+    flash.notice = "Page renamed "
+    return redirect_to wiki_page_path(@page.name)
   end
   def page
   end

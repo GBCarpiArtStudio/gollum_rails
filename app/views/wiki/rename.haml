@@ -1,0 +1,9 @@
+%h3= t(:rename_wiki_page) + " : " + @page.name
+= bootstrap_form_tag :url => rename_wiki_page_path(@page.name) , :html => { :role=>"form"}  do |f|
+  .form_group
+    = f.text_field :name , :value => params[:name]
+  .form_group
+    = f.text_field :message , :value => params[:message]
+  .form_group
+    = f.submit t(:submit) , :class => "btn btn-info submit"
+  

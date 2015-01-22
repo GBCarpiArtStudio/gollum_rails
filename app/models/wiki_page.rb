@@ -50,6 +50,13 @@ class WikiPage
     WikiPage.wiki.delete_page(self, message,  commiter)
   end
 
+  # rename to the given new name. message and commiter like other actions
+  def rename( new_name , message ,  commiter = { :email => "gollum_rails@github.com", :name => 'Gollum Rails' })
+    old_name = @name
+    @name = new_name
+    sha = WikiPage.wiki.rename_page(self, old_name , message,  commiter)
+    sha
+  end
   ## TODO move this stuff into a concern or something
   ## Note: The wiki is to a WikiPage what a db is to a normal model. ie something like a connection
 

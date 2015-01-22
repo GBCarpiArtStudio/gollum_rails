@@ -4,5 +4,5 @@
     = link_to "new page" , new_wiki_page_path
 .row
   -@pages.each do |page|
-    .col-md-6
+    .col-md-4
       = link_to page.name , wiki_page_path(page.name) , :class => :page_link

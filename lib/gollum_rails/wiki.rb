@@ -50,6 +50,15 @@ class GollumRails::Wiki
     end
   end
 
+  # rename is (git style) an add and remove.
+  def rename_page page , old_name , message , committer = { :email => "gollum_rails@github.com", :name => 'Gollum Rails' }
+    commit(committer , message) do |index|
+      index.remove_all( "#{old_name}.#{page.ext}")
+      oid = @repo.write(page.content, :blob)
+      index.add(:path => "#{page.name}.#{page.ext}", :oid => oid, :mode => 0100644)
+    end
+  end
+
   # Finds a page based on the name 
   #
   # name - the name of the page
@@ -75,7 +84,8 @@ class GollumRails::Wiki
   def commit( committer , message)
     raise "Committer name may not be empty" unless committer[:name]
     raise "Committer email may not be empty" unless committer[:email]
-    index = Rugged::Index.new
+    index = @repo.index
+    index.read_tree(@repo.head.target.tree) unless @repo.head_unborn?
     yield index
     options = {}
     options[:tree] = index.write_tree(@repo)
