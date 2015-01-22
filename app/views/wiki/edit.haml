@@ -3,5 +3,6 @@
   .form_group
     = f.text_area :content , :value => @page.content , :rows => page_rows(@page)
   = render :partial => "message" , :locals => { :f =>f}
+  = link_to t(:cancel) ,   wiki_page_path(@page.name) ,   :class => "btn , btn-info cancel_link"
   
   

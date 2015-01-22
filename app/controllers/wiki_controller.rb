@@ -68,7 +68,7 @@ class WikiController < ApplicationController
   end
   def find_page
     @page = WikiPage.wiki.find(params[:page])
-    redirect_to new_wiki_page_path(title: params[:page]), notice: t(:notice_page_does_to_exist) unless @page
+    redirect_to new_wiki_page_path(:name => params[:page]), notice: t(:notice_page_does_to_exist) unless @page
   end
 
 end
