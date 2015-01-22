@@ -1,8 +1,17 @@
 %h3= t(:edit_wiki_page) + " : " + @page.name
-= bootstrap_form_tag :url => edit_wiki_page_path(@page.name) , :html => { :role=>"form"}  do |f|
-  .form_group
-    = f.text_area :content , :value => @page.content , :rows => page_rows(@page)
-  = render :partial => "message" , :locals => { :f =>f}
-  = link_to t(:cancel) ,   wiki_page_path(@page.name) ,   :class => "btn , btn-info cancel_link"
-  
-  
+
+%div{:role => "tabpanel"}
+  %ul.nav.nav-tabs#preview_tabs{:role => "tablist"}
+    %li.active{:role => "presentation"}
+      %a{"aria-controls" => "edit", "data-toggle" => "tab", :href => "#edit", :role => "tab"} Edit
+    %li{:role => "presentation"}
+      %a.preview_link{"aria-controls" => "preview", :href => "#preview_content", :role => "tab"} Preview
+  .tab-content
+    #edit.tab-pane.active{:role => "tabpanel"} 
+      = bootstrap_form_tag :url => edit_wiki_page_path(@page.name) , :html => { :role=>"form"}  do |f|
+        .form_group
+          = f.text_area :content , :value => @page.content , :rows => page_rows(@page)
+        = render :partial => "message" , :locals => { :f =>f}
+        = link_to t(:cancel) ,   wiki_page_path(@page.name) ,   :class => "btn , btn-info cancel_link"    
+    #preview_content.tab-pane{:role => "tabpanel"}
+      two
