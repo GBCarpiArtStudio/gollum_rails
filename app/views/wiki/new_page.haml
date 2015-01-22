@@ -1,8 +1,22 @@
 %h3= t(:new_wiki_page)
-= bootstrap_form_tag :url => new_wiki_page_path , :html => { :role=>"form"}  do |f|
-  .form_group
-    = f.text_field :name , :value => params[:name]
-  .form_group
-    = f.text_area :content , :value =>  params[:content]
-  = render :partial => "message" , :locals => { :f =>f}
+
+
+%div{:role => "tabpanel"}
+  %ul.nav.nav-tabs#preview_tabs{:role => "tablist"}
+    %li.active{:role => "presentation"}
+      %a{"aria-controls" => "edit", "data-toggle" => "tab", :href => "#edit", :role => "tab"} Edit
+    %li{:role => "presentation"}
+      %a.preview_link{"aria-controls" => "preview", :href => "#preview_content", :role => "tab"} Preview
+  .tab-content
+    #edit.tab-pane.active{:role => "tabpanel"} 
+      = bootstrap_form_tag :url => new_wiki_page_path , :html => { :role=>"form"}  do |f|
+        .form_group
+          = f.text_field :name , :value =>  params[:name]
+        .form_group
+          = f.text_area :content , :value => params[:content] , :rows => 10 , :class => "preview_data"
+        = render :partial => "message" , :locals => { :f =>f}
+        = link_to t(:cancel) ,   wiki_root_path ,   :class => "btn , btn-info cancel_link"    
+    #preview_content.tab-pane{:role => "tabpanel"}
+      Loading Preview . . . 
+
   

@@ -12,7 +12,7 @@ $(document).ready ->
       url: "/wiki/preview"
       type: "POST"
       data:
-        content: "some **data**"
+        content: $(".preview_data").val()
       dataType: "html"
     )
     request.done (html) ->

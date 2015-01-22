@@ -10,7 +10,7 @@
     #edit.tab-pane.active{:role => "tabpanel"} 
       = bootstrap_form_tag :url => edit_wiki_page_path(@page.name) , :html => { :role=>"form"}  do |f|
         .form_group
-          = f.text_area :content , :value => @page.content , :rows => page_rows(@page)
+          = f.text_area :content , :value => @page.content , :rows => page_rows(@page) , :class => "preview_data"
         = render :partial => "message" , :locals => { :f =>f}
         = link_to t(:cancel) ,   wiki_page_path(@page.name) ,   :class => "btn , btn-info cancel_link"    
     #preview_content.tab-pane{:role => "tabpanel"}
