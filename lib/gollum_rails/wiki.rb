@@ -31,9 +31,12 @@ class GollumRails::Wiki
   def oid_data(oid)
     @repo.lookup(oid).content
   end
-  def pages
+  
+  def pages contains = ""
     list = []
-    @repo.head.target.tree.each_blob { |entry| list << WikiPage.init_entry(entry) }
+    @repo.head.target.tree.each_blob do |entry| 
+      list << WikiPage.init_entry(entry) if entry[:name].include?(contains)
+    end
     list
   end
 

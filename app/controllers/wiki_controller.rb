@@ -5,9 +5,15 @@ class WikiController < ApplicationController
 
   before_filter :find_page, only: [ :page , :edit , :delete , :rename]
 
-  # GET /pages
+  # GET all pages, unpaginated, useful only for small wikis
   def index
     @pages = WikiPage.wiki.pages
+  end
+
+  # return a list of pages that contain the "str" from /wiki/list/str
+  def list
+    @pages = WikiPage.wiki.pages( params[:str] )
+    render :list , :layout => false
   end
 
   def create

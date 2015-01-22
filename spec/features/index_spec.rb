@@ -13,10 +13,21 @@ describe "Home" do
      visit_path wiki_page_path("Home")
      expect(find(".edit_link").text).to eq "Edit"
      expect(find(".rename_link").text).to eq "Rename"
-   end
-   
-   it "shows home in edit mode" do
-     visit_path edit_wiki_page_path("Home")
-   end
+   end   
+end
+
+describe "List" do
+  before(:all) {    WikiPage.new( :content => "Jep" , :name => "jep" , :ext => "md").save("go") }
+  it "shows only list" do
+    visit_path wiki_list_path("Home")
+    expect(find(".page_link").text).to eq "Home"
+    expect(all(".page_link").length).to eq 1
+  end
+
+  it "shows index with both pages" do
+    visit_path wiki_root_path
+    expect(all(".page_link").length).to eq 2
+  end
+
 end
 
