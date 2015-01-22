@@ -3,11 +3,10 @@
 
 GollumRails::Engine.routes.draw do
 
-  get  "/index" => "wiki#index",    :as => :wiki_root
-  get  "/list/:str" => "wiki#list", :as => :wiki_list
-  get "/new" => "wiki#new" ,        :as => :new_wiki_page
-  post "/create" => "wiki#create" , :as => :create_wiki_page
-  
+  get  "/index" => "wiki#index",     :as => :wiki_root
+  get  "/list/:str" => "wiki#list",  :as => :wiki_list
+  match "/new" => "wiki#new_page" ,  :as => :new_wiki_page , :via => [:get , :post]
+
   constraints( :page => /.*/ ) do
     match "/edit/:page" => "wiki#edit" ,   :as => :edit_wiki_page   , :via => [:get , :post]
     match "/rename/:page" => "wiki#rename",:as => :rename_wiki_page , :via => [:get , :post]

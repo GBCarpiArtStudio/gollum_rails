@@ -16,7 +16,8 @@ class WikiController < ApplicationController
     render :list , :layout => false
   end
 
-  def create
+  def new_page
+    return unless request.post?
     @page = WikiPage.new(params)
     if(@page.name_exists?)
       flash[:error] = "Page name exists, please change #{@page.name}"
