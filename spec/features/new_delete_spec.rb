@@ -23,6 +23,13 @@ describe "delete" do
     ensure_path wiki_root_path
   end
 
+  it "dont delete without message" do
+    WikiPage.new( :content => "Always unique" , :name => "go_go" , :ext => "md").save("come and")
+    visit_path delete_wiki_page_path("go_go")
+    find(".submit").click
+    ensure_path delete_wiki_page_path("go_go")
+  end
+
   it "dont delete home" do
     page = WikiPage.wiki.find("Home")
     visit delete_wiki_page_path(page.name)

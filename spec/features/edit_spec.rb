@@ -9,6 +9,13 @@ describe "edit" do
     ensure_path wiki_page_path("Home")
   end
 
+  it "need message to edit" do
+    visit_path edit_wiki_page_path("Home")
+    fill_in("content" , :with => "# edited")
+    find(".submit").click
+    ensure_path edit_wiki_page_path("Home")
+  end
+
   it "edits new page" do
     page = WikiPage.new( :content => "Jep" , :name => "jep" , :ext => "md")
     expect(page.save( "done").length).to eq 40

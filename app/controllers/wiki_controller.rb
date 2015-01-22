@@ -18,6 +18,7 @@ class WikiController < ApplicationController
 
   def new_page
     return unless request.post?
+    return if needs_message
     @page = WikiPage.new(params)
     if(@page.name_exists?)
       flash[:error] = "Page name exists, please change #{@page.name}"
@@ -30,15 +31,16 @@ class WikiController < ApplicationController
 
   def edit
     return unless request.post?
-    name = @page.name
+    return if needs_message
     @page.content = params[:content]
     @page.save( params[:message] )
-    return redirect_to wiki_page_path(name)
+    return redirect_to wiki_page_path(@page.name)
   end
 
   def delete
     return redirect_to wiki_page_path("Home") if @page.name == "Home"
     return unless request.post?
+    return if needs_message
     name = @page.name
     @page.delete( params[:message] )
     flash.notice = "Page deleted "
@@ -48,15 +50,22 @@ class WikiController < ApplicationController
   def rename
     return redirect_to wiki_page_path("Home") if @page.name == "Home"
     return unless request.post?
+    return if needs_message
     @page.rename( params[:name] , params[:message] )
     flash.notice = "Page renamed "
     return redirect_to wiki_page_path(@page.name)
   end
-  def page
-  end
 
   private
 
+  def needs_message
+    if params[:message].blank?
+      flash.notice = "message must be given"
+      return true
+    else
+      return false
+    end
+  end
   def find_page
     @page = WikiPage.wiki.find(params[:page])
     redirect_to new_wiki_page_path(title: params[:page]), notice: t(:notice_page_does_to_exist) unless @page
