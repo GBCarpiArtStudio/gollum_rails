@@ -11,12 +11,4 @@ describe "Wiki" do
      expect(page.ext).to eq "md"
    end
 
-   it "deletes a page" do
-     page = WikiPage.new( :content => "Jep" , :name => "go_go" , :ext => "md")
-     page.save("come and")
-     page.delete("go away")
-     page = WikiPage.wiki.find("go_go")
-     expect(page).to eq nil
-   end
-
 end

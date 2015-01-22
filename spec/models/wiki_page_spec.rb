@@ -18,6 +18,15 @@ describe WikiPage do
      expect(page.ext).to eq "md"
    end
 
+   it "doesnt save without commiter" do
+     page = WikiPage.new( :content => "Jep" , :name => "ututu" , :ext => "md")
+     expect{ page.save( "done" , {}) }.to raise_error(RuntimeError, /Committer/) 
+   end
+   it "doesnt save without email" do
+     page = WikiPage.new( :content => "Jep" , :name => "ututu" , :ext => "md")
+     expect{ page.save( "done" , {:name => "john doe"}) }.to raise_error(RuntimeError, /Committer/) 
+   end
+
    it "deletes a page" do
      page = WikiPage.new( :content => "Always unique" , :name => "go_go" , :ext => "md")
      page.save("come and")

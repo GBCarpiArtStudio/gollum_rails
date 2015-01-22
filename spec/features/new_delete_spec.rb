@@ -14,9 +14,11 @@ end
 
 
 describe "delete" do
-  it "delete home" do
-    visit_path delete_wiki_page_path("Home")
-    fill_in("message" , :with => "edited")
+  it "delete new page" do
+    page = WikiPage.new( :content => "Always unique" , :name => "go_go" , :ext => "md")
+    page.save("come and")
+    visit_path delete_wiki_page_path("go_go")
+    fill_in("message" , :with => "maintanance")
     find(".submit").click
     ensure_path wiki_root_path
   end
