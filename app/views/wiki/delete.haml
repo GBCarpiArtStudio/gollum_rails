@@ -2,8 +2,5 @@
 
 %h5 Please give a reason why you want to delete this page
 = bootstrap_form_tag :url => delete_wiki_page_path(@page.name) , :html => { :role=>"form"}  do |f|
-  .form_group
-    = f.text_field :message , :value => params[:message]
-  .form_group
-    = f.submit t(:submit) , :class => "btn btn-info submit"
+  = render :partial => "message" , :locals => { :f =>f}
   

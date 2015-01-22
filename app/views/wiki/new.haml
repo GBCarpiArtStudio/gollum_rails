@@ -4,6 +4,5 @@
     = f.text_field :name
   .form_group
     = f.text_area :content 
-  .form_group
-    = f.submit t(:submit) , :class => "btn btn-info submit"
+  = render :partial => "message" , :locals => { :f =>f}
   
