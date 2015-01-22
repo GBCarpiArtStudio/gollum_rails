@@ -29,4 +29,11 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency 'bootstrap_form' , '~> 2.2'
   s.add_runtime_dependency "paperclip" , '~> 4.1'
   s.add_runtime_dependency 'rails-i18n' , '~> 4.0'
+  # html pipeline creates output with various filters, here dependents
+  s.add_runtime_dependency 'html-pipeline'
+  s.add_runtime_dependency 'html-pipeline-wiki-link'
+  s.add_runtime_dependency 'gemoji'
+  s.add_runtime_dependency 'rinku'
+  s.add_runtime_dependency 'sanitize'
+  s.add_runtime_dependency 'github-markdown'  
 end
