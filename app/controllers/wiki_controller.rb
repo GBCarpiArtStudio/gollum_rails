@@ -9,6 +9,10 @@ class WikiController < ApplicationController
   def index
     @pages = WikiPage.wiki.pages
   end
+  
+  def preview
+    render :preview , :layout => false
+  end
 
   # return a list of pages that contain the "str" from /wiki/list/str
   def list

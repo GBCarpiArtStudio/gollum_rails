@@ -3,7 +3,7 @@ module WikiHelper
     rows = page.content.split.length + 5
     rows > 30 ? 30 : rows
   end
-  def filter page
+  def filter content
     context = {       :base_url   => "/wiki"     }
     #      :asset_root => "http://your-domain.com/where/your/images/live/icons",
     #:base_url   => engine.root
@@ -15,6 +15,6 @@ module WikiHelper
                             #HTML::Pipeline::EmojiFilter,
                             HTML::Pipeline::AutolinkFilter, 
                             ], context
-    simple.call(page.content)[:output].to_s
+    simple.call(content)[:output].to_s
   end
 end
