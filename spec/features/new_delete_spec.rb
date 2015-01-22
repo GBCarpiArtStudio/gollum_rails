@@ -22,4 +22,10 @@ describe "delete" do
     find(".submit").click
     ensure_path wiki_root_path
   end
+
+  it "dont delete home" do
+    page = WikiPage.wiki.find("Home")
+    visit delete_wiki_page_path(page.name)
+    ensure_path wiki_page_path("Home")
+  end
 end

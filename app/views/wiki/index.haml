@@ -1,7 +1,7 @@
 .row
   .col-md-8
   .col-md-4
-    = link_to "new page" , new_wiki_page_path
+    = link_to "new page" , new_wiki_page_path ,    :class => "btn , btn-info edit_link"
 .row
   -@pages.each do |page|
     .col-md-4

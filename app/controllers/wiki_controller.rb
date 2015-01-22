@@ -30,6 +30,7 @@ class WikiController < ApplicationController
   end
 
   def delete
+    return redirect_to wiki_page_path("Home") if @page.name == "Home"
     return unless request.post?
     name = @page.name
     @page.delete( params[:message] )
@@ -38,6 +39,7 @@ class WikiController < ApplicationController
   end
 
   def rename
+    return redirect_to wiki_page_path("Home") if @page.name == "Home"
     return unless request.post?
     @page.rename( params[:name] , params[:message] )
     flash.notice = "Page renamed "
