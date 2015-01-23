@@ -5,6 +5,8 @@ class WikiController < ApplicationController
 
   before_filter :find_page, only: [ :page , :edit , :delete , :rename]
 
+  before_filter :require_user, only: [ :new_page , :edit , :delete , :rename]
+
   # GET all pages, unpaginated, useful only for small wikis
   def index
     @pages = WikiPage.wiki.pages
@@ -73,6 +75,13 @@ class WikiController < ApplicationController
   def find_page
     @page = WikiPage.wiki.find(params[:page])
     redirect_to new_wiki_page_path(:name => params[:page]), notice: t(:notice_page_does_to_exist) unless @page
+  end
+  
+  def require_user
+    user = wiki_user
+    return if user && user.may_edit
+    flash.notice = "You may not edit the wiki"
+    redirect_to wiki_root_path
   end
 
 end
