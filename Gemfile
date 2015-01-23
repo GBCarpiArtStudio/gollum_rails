@@ -19,10 +19,10 @@ group :development do
   gem 'binding_of_caller', :platforms=>[:mri_19, :mri_20, :mri_21,:rbx]
   gem 'quiet_assets' , :platforms=>[ :mri_20, :mri_21,:rbx]
   gem "i18n-tasks"
+  gem "codeclimate-test-reporter"
 end
 
 group :test do
-  gem "codeclimate-test-reporter"
   gem 'rspec-rails'
   gem 'capybara'
   gem "factory_girl_rails"

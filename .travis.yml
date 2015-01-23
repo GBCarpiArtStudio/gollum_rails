@@ -1,4 +1,6 @@
 language: ruby
+sudo: false
+cache: bundler
 rvm:
   - 1.9.3
   - 2.0.0
@@ -22,3 +24,8 @@ before_install:
 install:
   - cd test_app; bundle install --deployment;cd ..
   - bundle install --deployment
+
+addons:
+  code_climate:
+    repo_token: 994fe0df88e1132c5dc3ed68ae81e3bbc45d5d3abc5af6d9202da9caa28e7be0
+    
