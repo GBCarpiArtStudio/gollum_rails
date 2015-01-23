@@ -40,7 +40,7 @@ class GollumRails::Wiki
     list
   end
 
-  def save_page page , message , committer = { :email => "gollum_rails@github.com", :name => 'Gollum Rails' }
+  def save_page page , message , committer
     commit(committer , message) do |index|
       oid = @repo.write(page.content, :blob)
       index.add(:path => "#{page.name}.#{page.ext}", :oid => oid, :mode => 0100644)
@@ -79,21 +79,21 @@ class GollumRails::Wiki
     # add a basic page with the default name (todo configurable, default home)
     return unless @repo.empty?
     home = WikiPage.new( :name => "Home" , :ext => "md" , :content => "Your first wiki page")
-    save_page( home , "Homepage created" )
+    save_page( home , "Homepage created" , GollumRails::WikiUser.new("Wiki" , "wiki@domain.com") )
   end
 
   # common commit code for all add,remove, rename actions
   # yields to caller with the index to let the code do what it needs
   def commit( committer , message)
-    raise "Committer name may not be empty" unless committer[:name]
-    raise "Committer email may not be empty" unless committer[:email]
+    raise "Committer name may not be empty" unless committer.name
+    raise "Committer email may not be empty" unless committer.email
     index = @repo.index
     index.read_tree(@repo.head.target.tree) unless @repo.head_unborn?
     yield index
     options = {}
     options[:tree] = index.write_tree(@repo)
-    options[:author] = committer
-    options[:committer] = committer
+    options[:author] = {:name => committer.name , :email => committer.email}
+    options[:committer] = {:name => committer.name , :email => committer.email}
     options[:message] = message.nil? ? "" : message
     options[:parents] = @repo.empty? ? [] : [ @repo.head.target ].compact
     options[:update_ref] = "HEAD"

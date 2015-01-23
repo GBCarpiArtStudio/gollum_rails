@@ -39,22 +39,22 @@ class WikiPage
   def name_exists?
     !WikiPage.wiki.find(self.name).nil?
   end
+
   # writes the current page data to the git
   # new or old doesn't really matter, git will decide
-  # TODO commit data
-  def save  message , commiter = { :email => "gollum_rails@github.com", :name => 'Gollum Rails' }
-    WikiPage.wiki.save_page(self, message,  commiter)
+  def save  message , wiki_user
+    WikiPage.wiki.save_page(self, message,  wiki_user)
   end
 
-  def delete  message , commiter = { :email => "gollum_rails@github.com", :name => 'Gollum Rails' }
-    WikiPage.wiki.delete_page(self, message,  commiter)
+  def delete  message , wiki_user
+    WikiPage.wiki.delete_page(self, message,  wiki_user)
   end
 
-  # rename to the given new name. message and commiter like other actions
-  def rename( new_name , message ,  commiter = { :email => "gollum_rails@github.com", :name => 'Gollum Rails' })
+  # rename to the given new name. message and wiki_user like other actions
+  def rename( new_name , message ,  wiki_user )
     old_name = @name
     @name = new_name
-    sha = WikiPage.wiki.rename_page(self, old_name , message,  commiter)
+    sha = WikiPage.wiki.rename_page(self, old_name , message,  wiki_user)
     sha
   end
   ## TODO move this stuff into a concern or something

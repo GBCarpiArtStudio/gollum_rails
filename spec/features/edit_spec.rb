@@ -18,7 +18,7 @@ describe "edit" do
 
   it "edits new page" do
     page = WikiPage.new( :content => "Jep" , :name => "jep" , :ext => "md")
-    expect(page.save( "done").length).to eq 40
+    expect(page.save( "done" , a_user).length).to eq 40
     visit_path edit_wiki_page_path(page.name)
     fill_in("content" , :with => "some funky new stuff")
     fill_in("message" , :with => "edited")

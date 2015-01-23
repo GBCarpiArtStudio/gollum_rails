@@ -37,7 +37,7 @@ class WikiController < ApplicationController
     return unless request.post?
     return if needs_message
     @page.content = params[:content]
-    @page.save( params[:message] )
+    @page.save( params[:message] , wiki_user )
     return redirect_to wiki_page_path(@page.name)
   end
 
@@ -46,7 +46,7 @@ class WikiController < ApplicationController
     return unless request.post?
     return if needs_message
     name = @page.name
-    @page.delete( params[:message] )
+    @page.delete( params[:message] ,wiki_user)
     flash.notice = "Page deleted "
     return redirect_to wiki_root_path
   end
@@ -55,7 +55,7 @@ class WikiController < ApplicationController
     return redirect_to wiki_page_path("Home") if @page.name == "Home"
     return unless request.post?
     return if needs_message
-    @page.rename( params[:name] , params[:message] )
+    @page.rename( params[:name] , params[:message] , wiki_user)
     flash.notice = "Page renamed "
     return redirect_to wiki_page_path(@page.name)
   end

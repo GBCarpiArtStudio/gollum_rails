@@ -16,7 +16,7 @@ end
 describe "delete" do
   it "delete new page" do
     page = WikiPage.new( :content => "Always unique" , :name => "go_go" , :ext => "md")
-    page.save("come and")
+    page.save("come and" ,a_user)
     visit_path delete_wiki_page_path("go_go")
     fill_in("message" , :with => "maintanance")
     find(".submit").click
@@ -24,7 +24,7 @@ describe "delete" do
   end
 
   it "dont delete without message" do
-    WikiPage.new( :content => "Always unique" , :name => "go_go" , :ext => "md").save("come and")
+    WikiPage.new( :content => "Always unique" , :name => "go_go" , :ext => "md").save("come and",a_user)
     visit_path delete_wiki_page_path("go_go")
     find(".submit").click
     ensure_path delete_wiki_page_path("go_go")

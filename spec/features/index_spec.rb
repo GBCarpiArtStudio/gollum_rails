@@ -17,7 +17,7 @@ describe "Home" do
 end
 
 describe "List" do
-  before(:all) {    WikiPage.new( :content => "Jep" , :name => "jep" , :ext => "md").save("go") }
+  before(:all) {    WikiPage.new( :content => "Jep" , :name => "jep" , :ext => "md").save("go" , a_user) }
   it "shows only list" do
     visit_path wiki_list_path("Home")
     expect(find(".page_link").text).to eq "Home"

@@ -3,7 +3,7 @@ require 'spec_helper'
 describe "Rename" do
   
   it "rename a page" do
-    page = WikiPage.new( :content => "Jep" , :name => "jep" , :ext => "md").save( "done")
+    page = WikiPage.new( :content => "Jep" , :name => "jep" , :ext => "md").save( "done" , a_user)
     visit_path rename_wiki_page_path("jep")
     fill_in("name" , :with => "new_name")
     fill_in("message" , :with => "renamed")
@@ -12,7 +12,7 @@ describe "Rename" do
   end
 
   it "need message to rename" do
-    page = WikiPage.new( :content => "Jep" , :name => "jep" , :ext => "md").save( "done")
+    page = WikiPage.new( :content => "Jep" , :name => "jep" , :ext => "md").save( "done" , a_user)
     visit_path rename_wiki_page_path("jep")
     fill_in("name" , :with => "new_name")
     find(".submit").click
