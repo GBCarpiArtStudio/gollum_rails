@@ -17,7 +17,7 @@ gem 'uglifier', '>= 1.3.0'
 group :development do
   gem 'better_errors' , :platforms=>[:mri_20, :mri_21, :rbx]
   gem 'binding_of_caller', :platforms=>[:mri_19, :mri_20, :mri_21,:rbx]
-  gem 'quiet_assets'
+  gem 'quiet_assets' , :platforms=>[ :mri_20, :mri_21,:rbx]
   gem "i18n-tasks"
 end
 
