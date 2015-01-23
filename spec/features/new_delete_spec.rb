@@ -10,6 +10,12 @@ describe "new page" do
 #markdown disabled for now     expect(find("h1")).to have_content("header")
    end
 
+   it "doesnt allow new for no user" do
+     allow_any_instance_of(ApplicationController).to receive(:wiki_user).and_return(nil)
+     visit new_wiki_page_path
+     ensure_path wiki_root_path
+   end
+   
 end
 
 

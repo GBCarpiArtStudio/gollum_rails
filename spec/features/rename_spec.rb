@@ -25,4 +25,11 @@ describe "Rename" do
     ensure_path wiki_page_path("Home")
   end
 
+  it "doesnt allow rename for no user" do
+    page = WikiPage.new( :content => "Jep" , :name => "jep" , :ext => "md").save( "done" , a_user)
+    allow_any_instance_of(ApplicationController).to receive(:wiki_user).and_return(nil)
+    visit rename_wiki_page_path("jep")
+    ensure_path wiki_root_path
+  end
+
 end

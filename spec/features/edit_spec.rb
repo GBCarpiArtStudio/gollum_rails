@@ -26,4 +26,9 @@ describe "edit" do
     ensure_path wiki_page_path(page.name)
   end
 
+  it "doesnt allow edit for no user" do
+    allow_any_instance_of(ApplicationController).to receive(:wiki_user).and_return(nil)
+    visit edit_wiki_page_path("Home")
+    ensure_path wiki_root_path
+  end
 end
