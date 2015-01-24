@@ -12,6 +12,22 @@ describe "new page" do
      expect(find(:xpath , "//h1")).to have_content("MYHEADING")
    end
 
+   it "previews a new page" , :js => true do
+     visit_path new_wiki_page_path
+     fill_in("content" , :with => "# MYHEADING")
+     find(".preview_link").click
+     expect(find(:xpath , "//h1")).to have_content("MYHEADING")
+   end
+
+   it "does not create a new page when name exists" do
+     visit_path new_wiki_page_path
+     fill_in("name" , :with => "Home")
+     fill_in("content" , :with => "# MYHEADING")
+     fill_in("message" , :with => "new page")
+     find(".submit").click
+     ensure_path new_wiki_page_path
+   end
+
    it "does not create a new page without message" do
      visit_path new_wiki_page_path
      fill_in("name" , :with => "page_name2")
