@@ -46,7 +46,7 @@ class ApplicationController < ActionController::Base
 ..
 def wiki_user
   if logged_in?
-    return GollumRails::WikiUser.new( username , user_email , may_edit)
+    return GollumRails::WikiUser.new( user_name , user_email , may_edit)
   else
     return nil # may not edit
   end
@@ -57,6 +57,8 @@ end
 ## Configure
 
 #### Repository
+
+In application.rb
 
 ```
   config.wiki_path = "wiki.git"
@@ -88,11 +90,23 @@ So you can easily change the whole of the look. The templates are really easy.
 
 ## Contributing
 
+Anything welcome. Bugs, (small) requests, doc improvement. For bigger things talk to me first. 
+Threre is no list so you can send mail or open an issue
+
+Things that are planned and you are welcome to help with:
+
+- history
+- diffs
+- layout
+- documentation
+- gollum_lib (re)integration
+
 ### Development
 
 When the repo is checked out you can develop in the root as if it were a normal rails app.
 The app used is actually the test_app, but normal files like Gemfile and bin/rails exist in the root.
 So
+
 - bundle
 - bundle exec rails s
 - bundle exec rspec
@@ -105,7 +119,6 @@ Tests are as always in the **spec** folder. Running them also works in the root 
 
 Tests shoud accompany new code and bug fixes. **Rspec should be run before pushing**
 
-### Feedback and Issues
+## Enjoy
 
-## License
-
+Torsten (@villataik.fi)
