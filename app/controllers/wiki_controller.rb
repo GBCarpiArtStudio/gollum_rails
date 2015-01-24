@@ -30,7 +30,7 @@ class WikiController < ApplicationController
       flash[:error] = "Page name exists, please change #{@page.name}"
       render :edit
     else
-      @page.save(params[:message])
+      @page.save(params[:message] , wiki_user)
       redirect_to wiki_page_path(@page)
     end
   end
