@@ -11,7 +11,7 @@ class WikiController < ApplicationController
   def index
     @pages = WikiPage.wiki.pages
   end
-  
+
   def preview
     render :preview , :layout => false
   end
@@ -73,10 +73,11 @@ class WikiController < ApplicationController
     end
   end
   def find_page
+    redirect_to wiki_root_path if params[:page].blank? 
     @page = WikiPage.wiki.find(params[:page])
     redirect_to new_wiki_page_path(:name => params[:page]), notice: t(:notice_page_does_to_exist) unless @page
   end
-  
+
   def require_user
     user = wiki_user
     return if user && user.may_edit
