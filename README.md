@@ -1,7 +1,7 @@
 # GollumRails
-[![Build Status](https://travis-ci.org/gollum/gollum_rails.svg)](https://travis-ci.org/gollum/gollum_rails)
-[![Code Climate](https://codeclimate.com/github/gollum/gollum_rails/badges/gpa.svg)](https://codeclimate.com/github/gollum/gollum_rails)
-[![Test Coverage](https://codeclimate.com/github/gollum/gollum_rails/badges/coverage.svg)](https://codeclimate.com/github/gollum/gollum_rails)
+[![Build Status](https://travis-ci.org/dancinglightning/gollum_rails.svg)](https://travis-ci.org/dancinglightning/gollum_rails)
+[![Code Climate](https://codeclimate.com/github/dancinglightning/gollum_rails/badges/gpa.svg)](https://codeclimate.com/github/dancinglightning/gollum_rails)
+[![Test Coverage](https://codeclimate.com/github/dancinglightning/gollum_rails/badges/coverage.svg)](https://codeclimate.com/github/dancinglightning/gollum_rails)
 
 Gollum Rails lets you integrate a git based wiki into your application. It is
 a Ruby on Rails *engine* that does a subset of what [gollum](https://github.com/gollum/gollum) does.
@@ -31,7 +31,7 @@ The way an engine is used inside an application is by "mounting" it to a specifi
 
 Add
 
-`gem 'gollum_rails' , :github => "gollum/gollum_rails"`
+`gem 'gollum_rails' , :github => "dancinglightning/gollum_rails"`
 
 to your **Gemfile** and bundle.
 
@@ -55,7 +55,7 @@ Add requires to your applications css and js assets, like
 #### WikiUser
 
 We track all modifications and these require a
-[WikiUser](https://github.com/gollum/gollum_rails/blob/master/lib/gollum_rails/wiki_user.rb).
+[WikiUser](https://github.com/dancinglightning/gollum_rails/blob/master/lib/gollum_rails/wiki_user.rb).
 
 You **must** implement a wiki_user method on your **ApplicationController**. Something like
 
