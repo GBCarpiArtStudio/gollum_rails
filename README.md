@@ -12,9 +12,8 @@ a Ruby on Rails *engine* that does a subset of what [gollum](https://github.com/
 
 This project has just rebooted. The previous version was not an engine, so i have added controllers and views now.
 
-We are soon going into beta testing with what is believed to be rough but just usable software.
+The just released 2.0 is functional, but somewhat rough on the views. Improvements welcome.
 
-Release of version 2.0 will be about summer.
 
 ## Engine
 
@@ -33,7 +32,7 @@ The way an engine is used inside an application is by "mounting" it to a specifi
 
 Add
 
-`gem 'gollum_rails' , :github => "dancinglightning/gollum_rails"`
+`gem 'gollum_rails' `
 
 to your **Gemfile** and bundle.
 
@@ -76,13 +75,14 @@ end
 
 ### Mount the engine
 
-In rour contig/routes.rb include something like:
+In your config/routes.rb include something like:
 
 ```
 Rails.application.routes.draw do
   mount GollumRails::Engine => "/wiki"
 end
 ```
+
 After that you should be able to start your server and go to /wiki and start creating pages.
 
 
@@ -99,8 +99,8 @@ In application.rb
 Is the default, if you want something else, add to application.rb.
 If the path does not start with "/" it will be relative to Rails.root
 
-If the repository does not exist, it will be created. If it does exist, it must be bare.
-The working directory is not updated (as usual on serevers), but you may clone and push to it from elsewhere.
+If the repository does not exist, it will be created. If it does exist, it must be **bare**.
+The working directory is not updated (as usual on servers), but you may clone and push to it from elsewhere.
 
 ## Change appearance
 
@@ -117,13 +117,25 @@ You can use jquery to target and html in the dom to change it.
 
 #### Redefine template
 
-If you define a template that gollu_rails uses at the same place with the same name, it will be used instead.
+If you define a template that gollum_rails uses at the same place with the same name, it will be used instead.
 So you can easily change the whole of the look. The templates are really easy.
+
+#### Rendering
+
+The conversion from data to resulting html is done with the
+ [html-pipline](https://github.com/jch/html-pipeline) gem, so it is easy to add more filters.
+ The conversion happens in
+ ```
+    module WikiHelper
+      def filter content
+...
+ ```
+so it is very easy to redefine (patch)
 
 ## Contributing
 
 Anything welcome. Bugs, (small) requests, doc improvement. For bigger things talk to me first.
-Threre is no list so you can send mail or open an issue
+There is no list so you can send mail or open an issue
 
 Things that are planned and you are welcome to help with:
 
