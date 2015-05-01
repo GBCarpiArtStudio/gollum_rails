@@ -7,13 +7,11 @@ module WikiHelper
     context = {       :base_url   => "/wiki"     }
     #      :asset_root => "http://your-domain.com/where/your/images/live/icons",
     #:base_url   => engine.root
-    simple = HTML::Pipeline.new [ 
+    simple = HTML::Pipeline.new [
                             HTML::Pipeline::MarkdownFilter,
-                            HTML::Pipeline::WikiLinkFilter ,
-                            HTML::Pipeline::TableOfContentsFilter, 
+                            HTML::Pipeline::TableOfContentsFilter,
                             HTML::Pipeline::SanitizationFilter,
-                            #HTML::Pipeline::EmojiFilter,
-                            HTML::Pipeline::AutolinkFilter, 
+                            HTML::Pipeline::AutolinkFilter,
                             ], context
     simple.call(content)[:output].to_s
   end
