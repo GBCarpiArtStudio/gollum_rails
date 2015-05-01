@@ -31,7 +31,7 @@ The way an engine is used inside an application is by "mounting" it to a specifi
 
 Add
 
-`gem 'gollum_rails' , :github => "gollum/gollum_rails.git"`
+`gem 'gollum_rails' , :github => "gollum/gollum_rails"`
 
 to your **Gemfile** and bundle.
 
