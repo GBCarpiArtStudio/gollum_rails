@@ -3,6 +3,7 @@
 [![Build Status](https://travis-ci.org/dancinglightning/gollum_rails.svg)](https://travis-ci.org/dancinglightning/gollum_rails)
 [![Code Climate](https://codeclimate.com/github/dancinglightning/gollum_rails/badges/gpa.svg)](https://codeclimate.com/github/dancinglightning/gollum_rails)
 [![Test Coverage](https://codeclimate.com/github/dancinglightning/gollum_rails/badges/coverage.svg)](https://codeclimate.com/github/dancinglightning/gollum_rails)
+[![Gem Version](https://badge.fury.io/rb/gollum_rails.svg)](http://badge.fury.io/rb/gollum_rails)
 
 Gollum Rails lets you integrate a git based wiki into your application. It is
 a Ruby on Rails *engine* that does a subset of what [gollum](https://github.com/gollum/gollum) does.
