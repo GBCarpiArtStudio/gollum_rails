@@ -1,4 +1,5 @@
 # GollumRails
+
 [![Build Status](https://travis-ci.org/dancinglightning/gollum_rails.svg)](https://travis-ci.org/dancinglightning/gollum_rails)
 [![Code Climate](https://codeclimate.com/github/dancinglightning/gollum_rails/badges/gpa.svg)](https://codeclimate.com/github/dancinglightning/gollum_rails)
 [![Test Coverage](https://codeclimate.com/github/dancinglightning/gollum_rails/badges/coverage.svg)](https://codeclimate.com/github/dancinglightning/gollum_rails)
