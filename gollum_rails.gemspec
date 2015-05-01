@@ -8,10 +8,10 @@ Gem::Specification.new do |s|
   s.name              = "gollum_rails"
   s.rubyforge_project = s.name
   s.version           = GollumRails::VERSION
-  s.authors           = ["Florian Kasper, Torsten Ruger"]
-  s.email             = ["mosny@zyg.li , torsten@villataika.fi"]
-  s.homepage          = "https://github.com/gollum/gollum_rails"
-  s.summary           = "Gollum Rails is a rails engine that embeds the gollum-lib, git based wiki, into your app."
+  s.authors           = ["Torsten Ruger , Florian Kasper"]
+  s.email             = ["torsten@villataika.fi , mosny@zyg.li"]
+  s.homepage          = "https://github.com/dancinglightning/gollum_rails"
+  s.summary           = "A simple git based wiki, as a rails engine"
   s.description       = s.summary
   s.license           = "MIT"
 

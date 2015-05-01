@@ -18,13 +18,10 @@ matrix:
 
 before_install:
   - sudo apt-get install libicu-dev -yqq
-  - git init --bare spec/utils/test_wiki.git
 
 install:
-  - cd test_app; bundle install --deployment;cd ..
   - bundle install --deployment
 
 addons:
   code_climate:
     repo_token: 994fe0df88e1132c5dc3ed68ae81e3bbc45d5d3abc5af6d9202da9caa28e7be0
-    
