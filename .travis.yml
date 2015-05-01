@@ -24,4 +24,4 @@ install:
 
 addons:
   code_climate:
-    repo_token: 994fe0df88e1132c5dc3ed68ae81e3bbc45d5d3abc5af6d9202da9caa28e7be0
+    repo_token: 66ed34e162c3f06378cd92aea7e7f94ccd4c9e4fe93e79c9d92a546bda3fb7f0
