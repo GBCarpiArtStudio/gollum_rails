@@ -9,7 +9,7 @@ gem 'sqlite3'
 
 #asset / production related
 
-gem "therubyracer" 
+gem "therubyracer"
 gem "libv8" , "3.16.14.3"
 gem "rb-readline"
 gem 'uglifier', '>= 1.3.0'
@@ -20,6 +20,7 @@ group :development do
   gem 'quiet_assets' , :platforms=>[ :mri_20, :mri_21,:rbx]
   gem "i18n-tasks"
   gem "codeclimate-test-reporter"
+  gem "rubygems-tasks"
 end
 
 group :test do

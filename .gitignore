@@ -4,6 +4,9 @@
 /vendor/ruby/
 wiki.git/
 
+#rubygems-tasks
+pkg
+
 # minimal Rails specific artifacts
 *.sqlite3
 *.sqlite3-journal
