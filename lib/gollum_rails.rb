@@ -9,4 +9,3 @@ require 'bootstrap_form'
 require "paperclip"
 require 'rails-i18n'
 require 'html/pipeline'
-require 'html/pipeline/wiki_link'
