@@ -18,7 +18,7 @@ Gem::Specification.new do |s|
   s.files             = `git ls-files`.split("\n")
   s.test_files        = `git ls-files -- spec/*`.split("\n")
 
-  s.add_dependency         "rails", "~> 4.1.9"
+  s.add_dependency         "rails", "~> 4.0"
   s.add_runtime_dependency "rugged" , "~> 0.21"
   s.add_runtime_dependency "sass-rails" , "~> 4.0"
   s.add_runtime_dependency "haml" , "~> 4.0"
@@ -35,5 +35,5 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency 'gemoji'
   s.add_runtime_dependency 'rinku'
   s.add_runtime_dependency 'sanitize'
-  s.add_runtime_dependency 'github-markdown'  
+  s.add_runtime_dependency 'github-markdown'
 end
