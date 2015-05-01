@@ -17,7 +17,7 @@ class WikiPage
     WikiPage.new entry
   end
 
-  #Initialize from a hash that may have all the attributes set 
+  #Initialize from a hash that may have all the attributes set
   def initialize(entry)
     @name = entry[:name]
     @ext = entry[:ext] || :md
@@ -67,8 +67,13 @@ class WikiPage
   end
   # The singleton wiki (currently) is instantiated from the after_init in the engine
   # this can definately be improved, but it's a nice low key start
-  def self.init_wiki 
-    @@wiki = GollumRails::Wiki.new(Rails.application.config.wiki_path)
+  def self.init_wiki
+    begin
+      wiki_path = Rails.application.config.wiki_path
+    rescue
+      wiki_path = "wiki.git"
+    end
+    @@wiki = GollumRails::Wiki.new(wiki_path)
   end
-  
+
 end
