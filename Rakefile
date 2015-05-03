@@ -30,3 +30,5 @@ end
 TestApp::Application.load_tasks
 Bundler::GemHelper.install_tasks
 
+require 'rubygems/tasks'
+Gem::Tasks.new
