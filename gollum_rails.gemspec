@@ -20,7 +20,7 @@ Gem::Specification.new do |s|
 
   s.add_dependency         "rails", "~> 4.0"
   s.add_runtime_dependency "rugged" , "~> 0.21"
-  s.add_runtime_dependency "sass-rails" , "~> 4.0"
+  s.add_runtime_dependency "sass-rails" , "~> 5.0"
   s.add_runtime_dependency "haml" , "~> 4.0"
   s.add_runtime_dependency "jquery-rails" , '~> 3.1'
   s.add_runtime_dependency 'coffee-rails' , '~> 4.0'
